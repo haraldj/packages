@@ -456,9 +456,10 @@ unbound_mkdir() {
 
 
   # Ensure access and prepare to jail
-  chown -R unbound:unbound $UNBOUND_VARDIR
-  chmod 775 $UNBOUND_VARDIR
-  chmod 664 $UNBOUND_VARDIR/*
+  for file in $(find /var/lib/unbound/ -type f -maxdepth 1); do
+    chown root:unbound $file
+    chmod 640 $file
+  done
 }
 
 ##############################################################################
